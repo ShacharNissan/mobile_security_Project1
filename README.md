@@ -4,7 +4,7 @@ In this Auth_App you need to set all of the 3 first auth params to "unlock" whic
 2.Battery - You need to find the right level for the battery to be revealed.
 3.Volume - You need to find the right volume amount.
 
-after all 3 tougther will be unlocked:
+after all 3 together will be unlocked:
 4.password - You need to enter the right password inorder to log in.
 
 Hints: 
