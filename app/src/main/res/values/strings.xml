@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Auth APP</string>
+    <string name="good_pass" translatable="false">Success!</string>
+    <string name="bad_pass" translatable="false">Wrong Password!</string>
+    <string name="go" translatable="false">Go!</string>
+    <string name="lock" translatable="false">Locked!</string>
+    <string name="unlock" translatable="false">Unlocked!</string>
+
+    <string name="sotw_north" translatable="false">N</string>
+    <string name="sotw_east" translatable="false">E</string>
+    <string name="sotw_south" translatable="false">S</string>
+    <string name="sotw_west" translatable="false">W</string>
+    <string name="sotw_northeast" translatable="false">NE</string>
+    <string name="sotw_northwest" translatable="false">NW</string>
+    <string name="sotw_southeast" translatable="false">SE</string>
+    <string name="sotw_southwest" translatable="false">SW</string>
+</resources>
