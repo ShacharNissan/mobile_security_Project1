@@ -4,7 +4,7 @@ In this Auth_App you need to set all of the 3 first auth params to "unlock" whic
 
 2.Battery - You need to find the right level for the battery to be revealed.
 
-3.Volume - You need to find the right volume amount.
+3.Volume - You need to find the right volume amount for the right volume type.
 
 after all 3 together will be unlocked:
 
@@ -13,7 +13,7 @@ after all 3 together will be unlocked:
 Hints: 
 * Compass between 50 and 115.
 * Battery needs to be atleast 60%.
-* Volume needs to be atleast 12 (out of 15).
+* Music Volume needs to be atleast 12 (out of 15).
 * password is 123456.
 
 Created by: Shachar Nissan
