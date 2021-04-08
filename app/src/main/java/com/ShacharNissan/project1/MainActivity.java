@@ -2,6 +2,7 @@ package com.ShacharNissan.project1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.view.View;
@@ -20,15 +21,15 @@ import com.ShacharNissan.project1.volume.VoiceVolumnWrapper;
 
 public class MainActivity extends AppCompatActivity {
     //compass
-    private ImageView arrowView;
-    private TextView sotwLabel;
     private SOTWFormatter sotwFormatter;
     private Compass compass;
-    private float currentAzimuth;
+    private ImageView arrow_View;
+    private TextView comp_label;
+    private float current_dir;
     private boolean com_auth = false;
 
     //volume
-    private VoiceVolumnWrapper VoiceVolumnWrapper;
+    private VoiceVolumnWrapper voiceVolumnWrapper;
     private TextView vol_lock_Label;
     private ProgressBar vol_pb;
     private boolean vol_auth = false;
@@ -51,15 +52,15 @@ public class MainActivity extends AppCompatActivity {
 
         //compass sensor
         sotwFormatter = new SOTWFormatter(this);
-        arrowView = (ImageView) findViewById(R.id.arrowView);
-        sotwLabel = (TextView) findViewById(R.id.comp_lock_text);
+        arrow_View = (ImageView) findViewById(R.id.arrowView);
+        comp_label = (TextView) findViewById(R.id.comp_lock_text);
         setupCompass();
 
         //volume
         vol_lock_Label = (TextView) findViewById(R.id.volume_lock_text);
         vol_pb = (ProgressBar) findViewById(R.id.volume_progressBar);
-        VoiceVolumnWrapper = new VoiceVolumnWrapper(this);
-        VoiceVolumnWrapper.registerVolumeReceiver();
+        voiceVolumnWrapper = new VoiceVolumnWrapper(this);
+        voiceVolumnWrapper.registerVolumeReceiver();
 
         //Battery
         low_battery = (ImageView) findViewById(R.id.low_battery);
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         compass.start();
-        VoiceVolumnWrapper.registerVolumeReceiver();
+        voiceVolumnWrapper.registerVolumeReceiver();
     }
 
     @Override
@@ -107,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         compass.stop();
-        VoiceVolumnWrapper.unregisterVolumeReceiver();
+        voiceVolumnWrapper.unregisterVolumeReceiver();
     }
 
     private void setupCompass() {
@@ -124,33 +125,33 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         adjustArrow(azimuth);
-                        adjustSotwLabel(azimuth);
+                        adjust_Label(azimuth);
                     }
                 });
             }
         };
     }
 
-    private void adjustArrow(float azimuth) {
-        Animation an = new RotateAnimation(-currentAzimuth, -azimuth,
+    private void adjustArrow(float dir) {
+        Animation an = new RotateAnimation(-current_dir, -dir,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
                 0.5f);
-        currentAzimuth = azimuth;
+        current_dir = dir;
 
         an.setDuration(500);
         an.setRepeatCount(0);
         an.setFillAfter(true);
 
-        arrowView.startAnimation(an);
+        arrow_View.startAnimation(an);
     }
 
-    private void adjustSotwLabel(float azimuth) {
+    private void adjust_Label(float azimuth) {
 
         if (azimuth > 50 && azimuth < 115) {
-            sotwLabel.setText(R.string.unlock);
+            setUnlock(comp_label);
             com_auth = true;
         } else {
-            sotwLabel.setText(R.string.lock);
+            setLock(comp_label);
             com_auth = false;
         }
         checkAuth();
@@ -165,29 +166,41 @@ public class MainActivity extends AppCompatActivity {
         if (getBatteryPercentage() > 60){
             full_battery.setVisibility(View.VISIBLE);
             low_battery.setVisibility(View.INVISIBLE);
-            battery_label.setText(R.string.unlock);
+            setUnlock(battery_label);
             battery_auth = true;
         }else{
             full_battery.setVisibility(View.INVISIBLE);
             low_battery.setVisibility(View.VISIBLE);
-            battery_label.setText(R.string.lock);
+            setLock(battery_label);
             battery_auth = false;
         }
         checkAuth();
     }
 
     public void checkVolume() {
-        int currVolume = VoiceVolumnWrapper.GetMusicVoiceCurrentValue();
+        int currVolume = voiceVolumnWrapper.GetMusicVoiceCurrentValue();
         double vol_pre = (currVolume / 12.0)* 100;
         vol_pb.setProgress((int)vol_pre);
         if (currVolume >= 12){
             vol_auth = true;
-            vol_lock_Label.setText(R.string.unlock);
+            setUnlock(vol_lock_Label);
         }else {
             vol_auth = false;
-            vol_lock_Label.setText(R.string.lock);
+            setLock(vol_lock_Label);
         }
         checkAuth();
+    }
+
+    private void setUnlock(TextView view){
+        view.setText(R.string.unlock);
+        view.setTextSize(16);
+        view.setTextColor(Color.GREEN);
+    }
+
+    private void setLock(TextView view){
+        view.setText(R.string.lock);
+        view.setTextSize(16);
+        view.setTextColor(Color.RED);
     }
 
     public void checkAuth(){

@@ -164,16 +164,6 @@ public class VoiceVolumnWrapper {
         public void onReceive(Context context, Intent intent) {
             if (isReceiveVolumeChange(intent) == true) {
                 ((MainActivity)context).checkVolume();
-//                int currVolume = _AudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-//                TextView volLabel =(TextView) ((MainActivity)context).findViewById(R.id.volume_lock_text);
-//                ProgressBar vol_pb =(ProgressBar) ((MainActivity)context).findViewById(R.id.volume_progressBar);
-//                double vol_pre = (currVolume / 12.0)* 100;
-//                vol_pb.setProgress((int)vol_pre);
-//                if (currVolume >= 12){
-//                    volLabel.setText(R.string.unlock);
-//                }else {
-//                    volLabel.setText(R.string.lock);
-//                }
             }
         }
     }
