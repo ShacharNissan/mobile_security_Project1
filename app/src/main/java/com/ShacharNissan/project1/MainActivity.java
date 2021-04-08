@@ -2,7 +2,6 @@ package com.ShacharNissan.project1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.media.AudioManager;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +19,7 @@ import com.ShacharNissan.project1.compess.SOTWFormatter;
 import com.ShacharNissan.project1.volume.VoiceVolumnWrapper;
 
 public class MainActivity extends AppCompatActivity {
-    //compess
+    //compass
     private ImageView arrowView;
     private TextView sotwLabel;
     private SOTWFormatter sotwFormatter;
